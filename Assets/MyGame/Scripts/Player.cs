@@ -16,13 +16,24 @@ public class Player : MonoBehaviour
 
     public Text Inventory;
     public Text Status;
+    public Text WinText;
+    public Text Firewoodcount;
 
-    public string myStatus;
+    string myStatus;
+
+    public int firewood;
+
+    public int neededFirewood = 10;
+
 
     void Start()
     {
         SpawnPickUp();
         pickup = GameObject.FindGameObjectWithTag("PickUp");
+
+        firewood = 0;
+
+        WinText.enabled = false;
     }
 
     void Update()
@@ -32,6 +43,7 @@ public class Player : MonoBehaviour
 
         Inventory.text = "Inventory: " + pickUpCount + "/1";
         Status.text = "Status: " + myStatus;
+        Firewoodcount.text = firewood + " / " + neededFirewood;
 
         if (pickUpCount == 1)
         {
@@ -40,6 +52,11 @@ public class Player : MonoBehaviour
         else
         {
             Inventory.color = Color.green;
+        }
+
+        if (firewood == neededFirewood)
+        {
+            WinText.enabled = true;
         }
 
     }
@@ -95,6 +112,7 @@ public class Player : MonoBehaviour
             {
                 SpawnPickUp();
                 pickUpCount--;
+                firewood++;
             }
 
         }
